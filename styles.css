@@ -76,6 +76,7 @@ body {
     align-items: center;
 }
 
+.pressed,
 .btn:active {
   transform: translateY(2px);
   box-shadow: none;
@@ -101,15 +102,11 @@ body {
     font-weight: 900;
 }
 
+.operator.modulo,
 .special {
     background-color: var(--smoky-slate);
+    color: var(--vintage-ivory);
     font-weight: 600;
-}
-
-.operator.modulo {
-    background-color: var(--smoky-slate);
-    font-weight: 600;
-    color: var(--espresso);
 }
 
 .operator {
@@ -149,6 +146,8 @@ body {
     gap: 12px;
     margin-top: 12px;
 }
+
+
 
 
 
