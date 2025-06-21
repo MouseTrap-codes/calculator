@@ -106,6 +106,12 @@ body {
     font-weight: 600;
 }
 
+.operator.modulo {
+    background-color: var(--smoky-slate);
+    font-weight: 600;
+    color: var(--espresso);
+}
+
 .operator {
     background-color: var(--faded-pumpkin);
     color: var(--vintage-ivory);
