@@ -1,0 +1,149 @@
+:root {
+  --retro-orange: rgb(204, 108, 41);
+  --faded-pumpkin: rgb(229, 151, 75);
+  --texas-tan: rgb(244, 233, 220);
+  --off-white-paper: rgb(252, 248, 239);
+  --espresso: rgb(62, 45, 41);
+  --vintage-ivory: rgb(255, 247, 229);
+  --dusty-clay: rgb(178, 101, 67);
+  --smoky-slate: rgb(117, 109, 98);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+.container {
+    margin-top: 50px;
+    width: 360px;
+    height: 580px;
+    background-color: var(--texas-tan);
+    display: flex;
+    justify-content: center;
+    border: 3px solid var(--dusty-clay);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.display {
+    height: 90px;
+    background-color: var(--off-white-paper);
+    color: var(--espresso);
+    border: 2px inset var(--dusty-clay);
+    border-radius: 6px;
+    margin-top: 10px;
+    padding: 20px 16px;
+    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: right;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08); 
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+
+
+
+.btn {
+    height: 70px;
+    width: 70px;
+    
+}
+
+.btn,
+.btn-zero {
+    border: solid 2px var(--dusty-clay);
+    border-radius: 8px;
+    box-shadow: 0 3px var(--dusty-clay);
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.btn-zero:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn-zero:hover {
+    cursor: pointer;
+}
+
+
+.number {
+    background-color: var(--retro-orange);
+    color: var(--espresso);
+    font-weight: 900;
+}
+
+.special {
+    background-color: var(--smoky-slate);
+    font-weight: 600;
+}
+
+.operator {
+    background-color: var(--faded-pumpkin);
+    color: var(--vintage-ivory);
+    font-weight: 600;
+}
+
+.operator.equals {
+    font-weight: 800;
+    font-size: 26px;
+}
+
+.btn-zero {
+    border: solid 2px var(--dusty-clay);
+    height: 70px;
+    width: 152px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.elements {
+    display: flex;
+    flex-direction: column;
+    width: 316px;
+    margin: 20px 10px;
+}
+
+
+.row0,
+.row1,
+.row2,
+.row3,
+.row4 {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+
+
+
