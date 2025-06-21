@@ -165,3 +165,93 @@ function del(calculator, display) {
     }    
     display.textContent = display.textContent.slice(0, -1); // remove last character from what's being displayed
 }
+
+// keyboard support!
+const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+const operators = ["+", "-", "x", "/", "%", "Enter", "="] ;
+const special = ["Escape", "c", "C", "Backspace", "Delete"]
+document.addEventListener('keydown', (event) => {
+    let keyPressed = event.key;
+    const display = document.querySelector(".display");
+
+    if (numbers.includes(keyPressed)) {
+        keyNumberPressed(calculator, keyPressed, display);
+
+    } else if (operators.includes(keyPressed)) {
+        keyOperatorPressed(calculator, keyPressed, display);
+
+    } else if (special.includes(keyPressed)) {
+        keySpecialPressed(calculator, keyPressed, display);
+    }
+})
+
+function keySpecialPressed(calculator, keyPressed, display) {
+    let key = keyPressed;
+    if (key === "Escape" ||
+        key == "c" ||
+        key == "C" ||
+        key == "Delete"
+    ) {
+        clear(calculator, display);
+    } else if (key == "Backspace") {
+        del(calculator, display);
+    }
+}
+
+function keyNumberPressed(calculator, keyPressed, display) {
+    let newDigit = keyPressed; // we take the content of the button pressed as the new digit to register
+    let accepted;
+    if (calculator.operator === "") { // operator has not been pressed yet -> we are editing operandTwo
+        accepted = processNewDigit(calculator.operandOne, newDigit) // we add the new digit to operandOne
+    } else { // operator has been pressed -> we are processing operandTwo
+        if (display.textContent === calculator.operandOne.join("") && calculator.operandTwo.length === 0) { // we are currently displaying the result of a previous chain
+            display.textContent = ""; // start fresh for operandTwo 
+        }
+        accepted = processNewDigit(calculator.operandTwo, newDigit) // append new digit to operandTwo 
+    }
+    if (accepted) {
+        display.textContent += newDigit;
+    }
+}
+
+function keyOperatorPressed(calculator, keyPressed, display) {
+    let op = keyPressed; // the operator that was just pressed
+
+    if (op !== "=" && op != "Enter") { // the operator is not =
+        if (calculator.operator === "" &&  // operator had not been pressed yet in current chain
+            calculator.operandOne.length !== 0 && // operandOne has been entered
+            calculator.operandTwo.length === 0) {  // operandTwo is yet to be entered
+                display.textContent = ""; // clear display
+                calculator.operator = op;
+        } else if (calculator.operator !== "" && // operator has been entered before
+            calculator.operandOne.length !== 0 && // operandOne has been entered
+            calculator.operandTwo.length !== 0) { // operandTwo has been entered 
+                // this is our calculation chaining logic
+                let result = operate(calculator.operandOne.join(""), calculator.operandTwo.join(""), calculator.operator); // complete calculation with previous operator
+                calculator.operandOne = String(result).split(""); // set result of previous chain to the current operandOne
+                calculator.operandTwo.length = 0; // clear operandTwo
+                calculator.operator = op; // set operator to the operator that was just pressed
+
+                display.textContent = calculator.operandOne.join(""); // display operandOne
+        } else if (calculator.operator !== "" && // operator has been entered
+            calculator.operandOne.length !== 0 && // operandOne is populated -> ie during a chain
+            calculator.operandTwo.length === 0 // operandTwo is empty -> it has been used in a calculation to become operandOne
+        ) {
+            // this is the second part of the calculation chaining logic
+            display.textContent = "";
+
+        }
+    } else { // "=" has been pressed
+        if (calculator.operandOne.length !== 0 &&
+            calculator.operator !== "" &&
+            calculator.operandTwo.length !== 0
+        ) { // check if all three params for operate() are valid
+            console.log(calculator);
+            calculator.operandOne = String(operate(calculator.operandOne.join(""), calculator.operandTwo.join(""), calculator.operator)).split(""); // calculate the expression
+            display.textContent = calculator.operandOne.join(""); // push result to display
+            calculator.operandTwo.length = 0;
+            calculator.operator = "";
+        }
+    }
+}
+
